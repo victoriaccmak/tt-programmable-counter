@@ -5,7 +5,7 @@
 
 `default_nettype none
 
-module tt_um_example (
+module tt_programmable_counter (
     input  wire [7:0] ui_in,    // Dedicated inputs
     output wire [7:0] uo_out,   // Dedicated outputs
     input  wire [7:0] uio_in,   // IOs: Input path
@@ -16,12 +16,20 @@ module tt_um_example (
     input  wire       rst_n     // reset_n - low to reset
 );
 
-  // All output pins must be assigned. If not used, assign to 0.
-  assign uo_out  = ui_in + uio_in;  // Example: ou_out is the sum of ui_in and uio_in
-  assign uio_out = 0;
-  assign uio_oe  = 0;
+    assign uio_oe = 8'h00; // Set all bidirectional pins to input
+    wire [7:0] counter_val;
+    counter counter_inst (
+        .enable(ui_in[0]),
+        .clk_in(ui_in[1]),
+        .load(ui_in[2]),
+        .up_down(ui_in[3]),
+        .[7:0] in(uio_in),
+        .counter_reg(uo_out),
+        .clk(clk),
+        .rst_n(rst_n)     // reset_n - low to reset
+    );
 
   // List all unused inputs to prevent warnings
-  wire _unused = &{ena, clk, rst_n, 1'b0};
+  wire _unused = &{ena, ui_in[7:4], uio_out, 1'b0};
 
 endmodule
