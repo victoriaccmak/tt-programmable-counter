@@ -36,28 +36,23 @@ module counter (
             in_ff2 <= in_ff1;
 
             // Stable input values held long enough by the flip flops
-            enable_ <= enable_ff2;
-            clk_in <= clk_in_ff2;
-            load <= load_ff2;
-            up_down <= up_down_ff2;
-            in <= in_ff2;
+            ff_enable_ <= enable_ff2;
+            ff_clk_in <= clk_in_ff2;
+            ff_load <= load_ff2;
+            ff_up_down <= up_down_ff2;
+            ff_in <= in_ff2;
 
             // At every positive ff_sclk edge, update the counter
-            if (!ff_enable && enable_ff2) begin
-                counter_reg <= 8'h00;
-            end
             if (ff_enable) begin
                 if (!ff_load && load_ff2) begin
                     counter_reg <= in;
-                else if (!ff_clk_in && clk_in_ff2) begin
+                end else if (!ff_clk_in && clk_in_ff2) begin
                     if (ff_up_down) begin
                         counter_reg <= counter_reg + 1;
                     end else begin
                         counter_reg <= counter_reg - 1;
                     end
                 end
-            end else if (ff_enable && !enable_ff2) begin
-                counter_reg <= 8'bzz;
             end
         end
     end
