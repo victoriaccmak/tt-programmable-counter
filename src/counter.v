@@ -36,21 +36,27 @@ module counter (
             in_ff2 <= in_ff1;
 
             // Stable input values held long enough by the flip flops
-            ff_enable_ <= enable_ff2;
+            ff_enable <= enable_ff2;
             ff_clk_in <= clk_in_ff2;
             ff_load <= load_ff2;
             ff_up_down <= up_down_ff2;
             ff_in <= in_ff2;
 
             // At every positive ff_sclk edge, update the counter
-            if (ff_enable) begin
+            if (ff_enable && enable_ff2) begin
+                $display("Enable");
                 if (!ff_load && load_ff2) begin
+                    $display("Load");
                     counter_reg <= in;
                 end else if (!ff_clk_in && clk_in_ff2) begin
+                    
+                    $display("Clk_in rising edge");
                     if (ff_up_down) begin
                         counter_reg <= counter_reg + 1;
+                        $display("Increase count");
                     end else begin
                         counter_reg <= counter_reg - 1;
+                        $display("Decrease count");
                     end
                 end
             end

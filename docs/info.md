@@ -9,12 +9,12 @@ You can also include images in this folder and reference them in the markdown. E
 
 ## How it works
 
-Explain how your project works
+This is an 8-bit programmable counter. It takes in an enable signal, clock signal, load signal, and up_down signal. 
 
 ## How to test
 
-Explain how to use your project
+The test.py file tests for the counter counting up, loading a value, counting down, and tri-state value when the enable signal is off.
 
 ## External hardware
 
-List external hardware used in your project (e.g. PMOD, LED display, etc), if any
+N/A

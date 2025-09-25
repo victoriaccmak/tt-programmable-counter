@@ -28,7 +28,7 @@ module tt_um_programmable_counter_victoriaccmak (
         .rst_n(rst_n)     // reset_n - low to reset
     );
 
-    assign uio_oe = {8{ui_in[0]}};
+    assign uio_oe = {8{ui_in[0] & ~ui_in[2]}};
     assign uio_out = counter_val;
     assign uo_out = 8'b0;
 
