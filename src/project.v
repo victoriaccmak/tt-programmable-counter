@@ -5,7 +5,7 @@
 
 `default_nettype none
 
-module tt_programmable_counter (
+module tt_um_programmable_counter_victoriaccmak (
     input  wire [7:0] ui_in,    // Dedicated inputs
     output wire [7:0] uo_out,   // Dedicated outputs
     input  wire [7:0] uio_in,   // IOs: Input path
