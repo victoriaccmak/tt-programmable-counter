@@ -19,7 +19,22 @@ module counter (
     always @(posedge clk or negedge rst_n) begin
         if (!rst_n) begin
             // Reset all output counter registers to 0
-            counter_reg <= 8'h00;
+            counter_reg <= 8'h00;        
+            enable_ff1  <= 1'b0;
+            enable_ff2  <= 1'b0;
+            ff_enable   <= 1'b0;
+            clk_in_ff1  <= 1'b0;
+            clk_in_ff2  <= 1'b0;
+            ff_clk_in   <= 1'b0;
+            load_ff1    <= 1'b0;
+            load_ff2    <= 1'b0;
+            ff_load     <= 1'b0;
+            up_down_ff1 <= 1'b0;
+            up_down_ff2 <= 1'b0;
+            ff_up_down  <= 1'b0;
+            in_ff1      <= 8'h00;
+            in_ff2      <= 8'h00;
+            ff_in       <= 8'h00;
         end else begin
             // First flip flop values for inputs
             enable_ff1 <= enable;
