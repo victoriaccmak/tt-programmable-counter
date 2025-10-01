@@ -51,8 +51,6 @@ async def test_project(dut):
     for i in range(0, 256):
         dut.ui_in.value = ui_in_logicarray(1, 1, 0, 1)
         await half_clk_in(dut, 0.001)
-        dut._log.info(f"DEBUG Expected counter {i}, got {(dut.uio_out.value.binstr)}")
-        dut._log.info(f"OE: {(dut.uio_oe.value.binstr)}")
         assert dut.uio_out.value == i, f"Expected counter {i}, got {(dut.uio_out.value.binstr)}"
         dut.ui_in.value = ui_in_logicarray(1, 0, 0, 1)
         await half_clk_in(dut, 0.001)

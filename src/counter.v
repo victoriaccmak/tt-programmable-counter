@@ -29,9 +29,9 @@ module counter (
             load_ff1    <= 1'b0;
             load_ff2    <= 1'b0;
             ff_load     <= 1'b0;
-            up_down_ff1 <= 1'b0;
-            up_down_ff2 <= 1'b0;
-            ff_up_down  <= 1'b0;
+            up_down_ff1 <= 1'b1;
+            up_down_ff2 <= 1'b1;
+            ff_up_down  <= 1'b1;
             in_ff1      <= 8'h00;
             in_ff2      <= 8'h00;
             ff_in       <= 8'h00;
@@ -59,19 +59,13 @@ module counter (
 
             // At every positive ff_sclk edge, update the counter
             if (ff_enable && enable_ff2) begin
-                $display("Enable");
                 if (!ff_load && load_ff2) begin
-                    $display("Load");
                     counter_reg <= in;
                 end else if (!ff_clk_in && clk_in_ff2) begin
-                    
-                    $display("Clk_in rising edge");
                     if (ff_up_down) begin
                         counter_reg <= counter_reg + 1;
-                        $display("Increase count");
                     end else begin
                         counter_reg <= counter_reg - 1;
-                        $display("Decrease count");
                     end
                 end
             end
