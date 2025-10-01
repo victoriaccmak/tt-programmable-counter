@@ -51,8 +51,8 @@ async def test_project(dut):
     for i in range(0, 256):
         dut.ui_in.value = ui_in_logicarray(1, 1, 0, 1)
         await half_clk_in(dut, 0.001)
-        dut._log.info(f"DEBUG Expected counter {i}, got {(dut.uio_out.value.integer)}")
-        assert dut.uio_out.value == i, f"Expected counter {i}, got {(dut.uio_out.value.integer)}"
+        dut._log.info(f"DEBUG Expected counter {i}, got {(dut.uio_out.value.binstr)}")
+        assert dut.uio_out.value == i, f"Expected counter {i}, got {(dut.uio_out.value.binstr)}"
         dut.ui_in.value = ui_in_logicarray(1, 0, 0, 1)
         await half_clk_in(dut, 0.001)
 
@@ -61,7 +61,7 @@ async def test_project(dut):
     dut.ui_in.value = ui_in_logicarray(1, 1, 1, 0)
     dut.uio_in.value = 100
     await half_clk_in(dut, 0.001)
-    assert dut.uio_out.value == 100, f"Expected counter 100, got {(dut.uio_out.value.integer)}"
+    assert dut.uio_out.value == 100, f"Expected counter 100, got {(dut.uio_out.value.binstr)}"
 
     # Test counting down from 100 to 10
     # Continuously pull clk_in low and high. Make the counter have a period of 0.001ms.
@@ -70,7 +70,7 @@ async def test_project(dut):
     for i in range(99, 9, -1):
         dut.ui_in.value = ui_in_logicarray(1, 1, 0, 0)
         await half_clk_in(dut, 0.001)
-        assert dut.uio_out.value == i, f"Expected counter {i}, got {(dut.uio_out.value.integer)}"
+        assert dut.uio_out.value == i, f"Expected counter {i}, got {(dut.uio_out.value.binstr)}"
         dut.ui_in.value = ui_in_logicarray(1, 0, 0, 0)
         await half_clk_in(dut, 0.001)
 
@@ -78,9 +78,9 @@ async def test_project(dut):
     # Continuously pull clk_in low and high. Make the counter have a period of 0.001ms.
     dut.ui_in.value = ui_in_logicarray(0, 1, 0, 0)
     await half_clk_in(dut, 0.001)
-    assert dut.uio_oe.value == 0, f"Expected output enable 0 (for high Z), got {dut.uio_oe.value.integer}"
+    assert dut.uio_oe.value == 0, f"Expected output enable 0 (for high Z), got {dut.uio_oe.value.binstr}"
     dut.ui_in.value = ui_in_logicarray(1, 0, 0, 0)
     await half_clk_in(dut, 0.001)
-    assert dut.uio_oe.value == 255, f"Expected output enable 0xFF, got {dut.uio_oe.value.hexstr}"
+    assert dut.uio_oe.value == 255, f"Expected output enable 0xFF, got {dut.uio_oe.value.binstr}"
 
     assert True

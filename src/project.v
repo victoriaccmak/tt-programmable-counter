@@ -16,21 +16,20 @@ module tt_um_programmable_counter_victoriaccmak (
     input  wire       rst_n     // reset_n - low to reset
 );
 
-    wire [7:0] counter_val;
     counter counter_inst (
         .enable(ui_in[0]),
         .clk_in(ui_in[1]),
         .load(ui_in[2]),
         .up_down(ui_in[3]),
         .in(uio_in),
-        .counter_reg(counter_val),
+        .counter_reg(uio_out),
         .clk(clk),
         .rst_n(rst_n)     // reset_n - low to reset
     );
 
     assign uio_oe = {8{ui_in[0] & ~ui_in[2]}};
-    assign uio_out = counter_val;
     assign uo_out = 8'b0;
+    
 
   // List all unused inputs to prevent warnings
   wire _unused = &{ena, ui_in[7:4], 1'b0};
